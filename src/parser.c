@@ -6,22 +6,39 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 15:22:40 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/10/23 18:09:41 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/15 18:10:37 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ft_check_num(char *str)
+bool	ft_check_atoi(const char *nptr)
+{
+	long long int	num;
+	int				i;
+
+	num = 0;
+	i = 0;
+	while (nptr[i])
+	{
+		num = num * 10 + (nptr[i] - '0');
+		if (num > INT_MAX)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static int	ft_check_num(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (*str == '\0')
+	if (!str)
 		return (1);
 	while (str[i])
 	{
-		if (str[i] < '0' || str[i] > '9')
+		if (!ft_isdigit(str[i]))
 			return (1);
 		i++;
 	}
@@ -35,12 +52,12 @@ int	ft_check_args(int ac, char **av)
 	int	i;
 
 	if (ac != 5 && ac != 6)
-		return (ft_printf("args not valid"), 1);
+		return (printf("args not valid\n"), 1);
 	i = 1;
 	while (av[i])
 	{
 		if (ft_check_num(av[i]) == 1)
-			return (ft_printf("args not valid"), 1);
+			return (printf("args not valid\n"), 1);
 		i++;
 	}
 	return (0);
