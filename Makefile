@@ -6,7 +6,7 @@
 #    By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/29 15:39:24 by fbanzo-s          #+#    #+#              #
-#    Updated: 2025/11/17 18:09:52 by fbanzo-s         ###   ########.fr        #
+#    Updated: 2025/11/19 20:11:52 by fbanzo-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ INCLUDE_DIR = include
 
 HEADER = includes/philosophers.h
 
-SRCS_FILES = main.c utils.c parser.c data.c philo.c
+SRCS_FILES = main.c utils.c parser.c data.c philo.c \
+mutex.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRCS_FILES))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS_FILES:.c=.o))

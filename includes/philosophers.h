@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:51:38 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/17 19:54:11 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:19:07 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <unistd.h>
 
 typedef struct s_data	t_data;
 
@@ -42,6 +43,8 @@ typedef struct s_data
 	bool			is_dead;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	data_lock;
+	pthread_mutex_t	write_lock;
 }	t_data;
 
 // utils.c
@@ -55,5 +58,9 @@ t_data	*ft_init_data(int ac, char **av);
 // philo.c
 void	ft_init_philos(t_data *data);
 void	ft_assign_forks(t_philo *philo, t_data *data);
+// mutex.c
+int		ft_init_mutex_forks(t_data *data);
+void	ft_destroy_mutex_forks(t_data *data);
+void	ft_destroy_mutex_all(t_data *data);
 
 #endif
