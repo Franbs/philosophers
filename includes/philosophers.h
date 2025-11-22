@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:51:38 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/19 14:19:07 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/22 20:26:06 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
-# include <unistd.h>
+# include <sys/time.h>
 
 typedef struct s_data	t_data;
 
@@ -40,6 +40,7 @@ typedef struct s_data
 	long			time_to_die;
 	long			time_to_sleep;
 	int				n_min_eat;
+	long			start_time;
 	bool			is_dead;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
@@ -51,6 +52,7 @@ typedef struct s_data
 int		ft_atol(const char *nptr);
 int		ft_atoi(const char *nptr);
 int		ft_isdigit(int c);
+long	ft_get_time(void);
 // parser.c
 int		ft_check_args(int ac, char **av);
 // data.c

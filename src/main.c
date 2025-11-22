@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:53:05 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/20 16:43:27 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/22 20:27:12 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,36 @@
 
 void	*philo_routine(void *arg)
 {
+	t_philo	*philo;
 
+	philo = (t_philo *)arg;
+	while (philo->data->is_dead == false)
+	{
+		
+	}
 }
 
-ft_init_threads(t_data *data)
+int	ft_init_threads(t_data *data)
 {
 	int	i;
 
 	i = 0;
+	data->start_time = ft_get_time();
 	while (i < data->n_philos)
 	{
-		//pthread_create();
+		data->philos[i].last_meal_time = data->start_time;
+		if (pthread_create(&data->philos[i].thread, NULL,
+			philo_routine, &data->philos[i]) != 0)
+			return (1);
 		i++;
 	}
+	i = 0;
+	while (i < data->n_philos)
+	{
+		pthread_join(data->philos[i].thread, NULL);
+		i++;
+	}
+	return (0);
 }
 
 int	main(int ac, char **av)
