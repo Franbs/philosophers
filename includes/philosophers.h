@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:51:38 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/22 20:26:06 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/23 02:15:25 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 typedef struct s_data	t_data;
 
@@ -53,8 +54,10 @@ int		ft_atol(const char *nptr);
 int		ft_atoi(const char *nptr);
 int		ft_isdigit(int c);
 long	ft_get_time(void);
+void	ft_usleep(long time);
 // parser.c
 int		ft_check_args(int ac, char **av);
+void	ft_log(t_philo *philo, char *msg);
 // data.c
 t_data	*ft_init_data(int ac, char **av);
 // philo.c

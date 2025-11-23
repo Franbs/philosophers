@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:53:05 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/22 20:27:12 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/23 02:14:48 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,30 @@
 
 void	*philo_routine(void *arg)
 {
+	t_data	*data;
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (philo->data->is_dead == false)
+	data = philo->data;
+	while (data->is_dead == false)
 	{
-		
+		ft_log(philo, "is thinking");
+		pthread_mutex_lock(philo->left_fork);
+		ft_log(philo, "has taken a fork");
+		pthread_mutex_lock(philo->right_fork);
+		ft_log(philo, "has taken a fork");
+		pthread_mutex_lock(&data->data_lock);
+		ft_log(philo, "is eating");
+		philo->meals_eaten++;
+		philo->last_meal_time = ft_get_time();
+		pthread_mutex_unlock(&data->data_lock);
+		ft_usleep(philo->data->time_to_eat);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+		ft_log(philo, "is sleeping");
+		ft_usleep(philo->data->time_to_sleep);
 	}
+	return (NULL);
 }
 
 int	ft_init_threads(t_data *data)

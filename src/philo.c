@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 18:09:30 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/19 14:19:41 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/23 02:25:16 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_assign_forks(t_philo *philo, t_data *data)
 {
-	if (philo->id == data->n_philos - 1)
+	if (philo->id == data->n_philos)
 	{
 		philo->left_fork = &data->forks[philo->id - 1];
-		philo->right_fork = &data->forks[data->n_philos - 1];
+		philo->right_fork = &data->forks[0];
 	}
 	else
 	{
