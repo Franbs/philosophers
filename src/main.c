@@ -6,13 +6,13 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:53:05 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/23 02:14:48 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/23 02:27:03 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*philo_routine(void *arg)
+void	*ft_philo_routine(void *arg)
 {
 	t_data	*data;
 	t_philo	*philo;
@@ -50,7 +50,7 @@ int	ft_init_threads(t_data *data)
 	{
 		data->philos[i].last_meal_time = data->start_time;
 		if (pthread_create(&data->philos[i].thread, NULL,
-			philo_routine, &data->philos[i]) != 0)
+			ft_philo_routine, &data->philos[i]) != 0)
 			return (1);
 		i++;
 	}
