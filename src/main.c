@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:53:05 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/23 02:27:40 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:13:33 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ void	*ft_philo_routine(void *arg)
 	return (NULL);
 }
 
+void	ft_monitor_routine(t_data *data)
+{
+	while (data->is_dead == false)
+	{
+		ft_is_dead(data);
+		ft_ate_min(data);
+	}
+}
+
 int	ft_init_threads(t_data *data)
 {
 	int	i;
@@ -54,6 +63,7 @@ int	ft_init_threads(t_data *data)
 			return (1);
 		i++;
 	}
+	ft_monitor_routine(data);
 	i = 0;
 	while (i < data->n_philos)
 	{
