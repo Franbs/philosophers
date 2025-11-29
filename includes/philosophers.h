@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:51:38 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/25 17:13:22 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/29 22:36:26 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_init_philos(t_data *data);
 void	ft_assign_forks(t_philo *philo, t_data *data);
 void	ft_is_dead(t_data *data);
 void	ft_ate_min(t_data *data);
+void	ft_lock_forks(t_philo *philo);
 // mutex.c
 int		ft_init_mutex_forks(t_data *data);
 void	ft_destroy_mutex_forks(t_data *data);

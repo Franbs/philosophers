@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:53:05 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/25 17:13:33 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/29 22:49:26 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,19 @@ void	*ft_philo_routine(void *arg)
 {
 	t_data	*data;
 	t_philo	*philo;
+	bool	dead;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+		usleep(1000);
 	data = philo->data;
-	while (data->is_dead == false)
+	pthread_mutex_lock(&data->data_lock);
+	dead = data->is_dead;
+	pthread_mutex_unlock(&data->data_lock);
+	while (!dead)
 	{
 		ft_log(philo, "is thinking");
-		pthread_mutex_lock(philo->left_fork);
-		ft_log(philo, "has taken a fork");
-		pthread_mutex_lock(philo->right_fork);
-		ft_log(philo, "has taken a fork");
+		ft_lock_forks(philo);
 		pthread_mutex_lock(&data->data_lock);
 		ft_log(philo, "is eating");
 		philo->meals_eaten++;
@@ -36,16 +39,28 @@ void	*ft_philo_routine(void *arg)
 		pthread_mutex_unlock(philo->left_fork);
 		ft_log(philo, "is sleeping");
 		ft_usleep(philo->data->time_to_sleep);
+		pthread_mutex_lock(&data->data_lock);
+		dead = data->is_dead;
+		pthread_mutex_unlock(&data->data_lock);
 	}
 	return (NULL);
 }
 
 void	ft_monitor_routine(t_data *data)
 {
-	while (data->is_dead == false)
+	bool	dead;
+
+	pthread_mutex_lock(&data->data_lock);
+	dead = data->is_dead;
+	pthread_mutex_unlock(&data->data_lock);
+	while (!dead)
 	{
 		ft_is_dead(data);
 		ft_ate_min(data);
+		pthread_mutex_lock(&data->data_lock);
+		dead = data->is_dead;
+		pthread_mutex_unlock(&data->data_lock);
+		usleep(1000);
 	}
 }
 

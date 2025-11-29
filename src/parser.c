@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 15:22:40 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/23 01:20:46 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/29 19:31:20 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_log(t_philo *philo, char *msg)
 	pthread_mutex_lock(&data->write_lock);
 	if (data->is_dead == false)
 	{
-		curr_time = ft_get_time();
+		curr_time = ft_get_time() - data->start_time;
 		printf("%ld %d %s\n", curr_time, philo->id, msg);
 	}
 	pthread_mutex_unlock(&data->write_lock);
