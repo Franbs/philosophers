@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:53:05 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/29 22:49:26 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/30 22:21:03 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,7 @@ void	*ft_philo_routine(void *arg)
 	pthread_mutex_unlock(&data->data_lock);
 	while (!dead)
 	{
-		ft_log(philo, "is thinking");
-		ft_lock_forks(philo);
-		pthread_mutex_lock(&data->data_lock);
-		ft_log(philo, "is eating");
-		philo->meals_eaten++;
-		philo->last_meal_time = ft_get_time();
-		pthread_mutex_unlock(&data->data_lock);
-		ft_usleep(philo->data->time_to_eat);
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-		ft_log(philo, "is sleeping");
-		ft_usleep(philo->data->time_to_sleep);
+		ft_manage_routine(data, philo);
 		pthread_mutex_lock(&data->data_lock);
 		dead = data->is_dead;
 		pthread_mutex_unlock(&data->data_lock);
@@ -70,6 +59,8 @@ int	ft_init_threads(t_data *data)
 
 	i = 0;
 	data->start_time = ft_get_time();
+	if (data->n_philos == 1)
+		return (ft_manage_one_philo(&data->philos[0]));
 	while (i < data->n_philos)
 	{
 		data->philos[i].last_meal_time = data->start_time;

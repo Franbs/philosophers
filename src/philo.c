@@ -6,19 +6,11 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 18:09:30 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/29 22:48:57 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/11/30 22:13:43 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	ft_lock_forks(t_philo *philo)
-{
-	pthread_mutex_lock(philo->left_fork);
-	ft_log(philo, "has taken a fork");
-	pthread_mutex_lock(philo->right_fork);
-	ft_log(philo, "has taken a fork");
-}
 
 void	ft_assign_forks(t_philo *philo, t_data *data)
 {
