@@ -6,7 +6,7 @@
 #    By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/29 15:39:24 by fbanzo-s          #+#    #+#              #
-#    Updated: 2025/11/30 22:14:06 by fbanzo-s         ###   ########.fr        #
+#    Updated: 2025/12/04 19:42:46 by fbanzo-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS = $(addprefix $(SRC_DIR)/, $(SRCS_FILES))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS_FILES:.c=.o))
 
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -I$(INCLUDE_DIR) #-fsanitize=address,leak
+CFLAGS = -g -Wall -Wextra -Werror -I$(INCLUDE_DIR) #-fsanitize=thread
 RM = rm -rf
 
 INCLUDES = -Iincludes

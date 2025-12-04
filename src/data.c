@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 17:47:08 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/17 19:54:53 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:10:55 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,14 @@ t_data	*ft_init_data(int ac, char **av)
 	data->philos = NULL;
 	data->forks = NULL;
 	return (data);
+}
+
+bool	ft_get_dead(t_data *data)
+{
+	bool	dead;
+
+	pthread_mutex_lock(&data->data_lock);
+	dead = data->is_dead;
+	pthread_mutex_unlock(&data->data_lock);
+	return (dead);
 }

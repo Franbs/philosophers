@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 18:09:30 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/30 22:13:43 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:39:38 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_is_dead(t_data *data)
 {
 	int		i;
 	long	time_last_meal;
+	long	curr_time;
 
 	i = 0;
 	while (i < data->n_philos)
@@ -56,28 +57,27 @@ void	ft_is_dead(t_data *data)
 		pthread_mutex_lock(&data->data_lock);
 		time_last_meal = ft_get_time()
 			- data->philos[i].last_meal_time;
-		pthread_mutex_unlock(&data->data_lock);
 		if (time_last_meal > data->time_to_die)
 		{
-			ft_log(&data->philos[i], "died");
-			pthread_mutex_lock(&data->data_lock);
 			data->is_dead = true;
 			pthread_mutex_unlock(&data->data_lock);
+			pthread_mutex_lock(&data->write_lock);
+			curr_time = ft_get_time() - data->start_time;
+			printf("%ld %d died\n", curr_time, data->philos[i].id);
+			pthread_mutex_unlock(&data->write_lock);
 			return ;
 		}
+		pthread_mutex_unlock(&data->data_lock);
 		i++;
 	}
 }
 
-void	ft_ate_min(t_data *data)
+static int	ft_check_ate_min(t_data *data)
 {
 	int	i;
 	int	all_ate;
 
-	if (data->n_min_eat <= 0)
-		return ;
 	all_ate = 1;
-	pthread_mutex_lock(&data->data_lock);
 	i = 0;
 	while (i < data->n_philos)
 	{
@@ -88,10 +88,25 @@ void	ft_ate_min(t_data *data)
 		}
 		i++;
 	}
+	return (all_ate);
+}
+
+void	ft_ate_min(t_data *data)
+{
+	int	all_ate;
+
+	if (data->n_min_eat <= 0)
+		return ;
+	pthread_mutex_lock(&data->data_lock);
+	all_ate = ft_check_ate_min(data);
 	if (all_ate == 1)
 	{
-		printf("all philosophers ate the min amount\n");
 		data->is_dead = true;
+		pthread_mutex_unlock(&data->data_lock);
+		pthread_mutex_lock(&data->write_lock);
+		printf("all philosophers ate the min amount\n");
+		pthread_mutex_unlock(&data->write_lock);
+		return ;
 	}
 	pthread_mutex_unlock(&data->data_lock);
 }

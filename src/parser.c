@@ -6,13 +6,13 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 15:22:40 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/29 19:31:20 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:36:30 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-bool	ft_check_atoi(const char *nptr)
+static bool	ft_check_atoi(const char *nptr)
 {
 	long long int	num;
 	int				i;
@@ -70,7 +70,7 @@ void	ft_log(t_philo *philo, char *msg)
 
 	data = philo->data;
 	pthread_mutex_lock(&data->write_lock);
-	if (data->is_dead == false)
+	if (!ft_get_dead(data))
 	{
 		curr_time = ft_get_time() - data->start_time;
 		printf("%ld %d %s\n", curr_time, philo->id, msg);

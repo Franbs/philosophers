@@ -6,54 +6,35 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:53:05 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/30 22:21:03 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:35:49 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*ft_philo_routine(void *arg)
+static void	*ft_philo_routine(void *arg)
 {
 	t_data	*data;
 	t_philo	*philo;
-	bool	dead;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
-		usleep(1000);
 	data = philo->data;
-	pthread_mutex_lock(&data->data_lock);
-	dead = data->is_dead;
-	pthread_mutex_unlock(&data->data_lock);
-	while (!dead)
-	{
+	while (!ft_get_dead(data))
 		ft_manage_routine(data, philo);
-		pthread_mutex_lock(&data->data_lock);
-		dead = data->is_dead;
-		pthread_mutex_unlock(&data->data_lock);
-	}
 	return (NULL);
 }
 
-void	ft_monitor_routine(t_data *data)
+static void	ft_monitor_routine(t_data *data)
 {
-	bool	dead;
-
-	pthread_mutex_lock(&data->data_lock);
-	dead = data->is_dead;
-	pthread_mutex_unlock(&data->data_lock);
-	while (!dead)
+	while (!ft_get_dead(data))
 	{
 		ft_is_dead(data);
 		ft_ate_min(data);
-		pthread_mutex_lock(&data->data_lock);
-		dead = data->is_dead;
-		pthread_mutex_unlock(&data->data_lock);
 		usleep(1000);
 	}
 }
 
-int	ft_init_threads(t_data *data)
+static int	ft_init_threads(t_data *data)
 {
 	int	i;
 
@@ -92,5 +73,6 @@ int	main(int ac, char **av)
 		return (free(data), 1);
 	ft_init_philos(data);
 	ft_init_threads(data);
+	ft_destroy_mutex_all(data);
 	return (free(data->forks), free(data->philos), free(data), 0);
 }

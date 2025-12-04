@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:51:38 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/30 22:21:16 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:35:05 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int		ft_check_args(int ac, char **av);
 void	ft_log(t_philo *philo, char *msg);
 // data.c
 t_data	*ft_init_data(int ac, char **av);
+bool	ft_get_dead(t_data *data);
 // philo.c
 void	ft_init_philos(t_data *data);
 void	ft_assign_forks(t_philo *philo, t_data *data);
@@ -71,7 +72,6 @@ void	ft_destroy_mutex_forks(t_data *data);
 void	ft_destroy_mutex_all(t_data *data);
 // routine.c
 int		ft_manage_one_philo(t_philo *philo);
-void	ft_lock_forks(t_philo *philo);
 void	ft_manage_routine(t_data *data, t_philo *philo);
 
 #endif
