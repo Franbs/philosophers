@@ -6,7 +6,7 @@
 #    By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/29 15:39:24 by fbanzo-s          #+#    #+#              #
-#    Updated: 2025/12/04 19:42:46 by fbanzo-s         ###   ########.fr        #
+#    Updated: 2025/12/04 20:37:15 by fbanzo-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ RESET = \033[0m
 BULLET = $(BLUE)•$(RESET)
 BULLET_RED = $(RED)•$(RESET)
 
-NAME = philosophers
+NAME = philo
 
 SRC_DIR = src
 OBJ_DIR = obj

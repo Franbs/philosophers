@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 22:07:00 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/12/04 19:35:14 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/04 20:19:39 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_manage_routine(t_data *data, t_philo *philo)
 	pthread_mutex_t	*f2;
 
 	ft_log(philo, "is thinking");
-	if (philo->id % 2 == 0)
+	if (philo->id == data->n_philos)
 	{
 		f1 = philo->right_fork;
 		f2 = philo->left_fork;
