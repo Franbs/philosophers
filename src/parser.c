@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 15:22:40 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/12/04 19:36:30 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/04 20:50:41 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ int	ft_check_args(int ac, char **av)
 		if (ft_check_num(av[i]) == 1)
 			return (printf("args not valid\n"), 1);
 		i++;
+	}
+	if (ac == 6)
+	{
+		if (ft_atoi(av[5]) < 1)
+			return (1);
 	}
 	return (0);
 }
