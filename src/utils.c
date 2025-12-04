@@ -6,62 +6,25 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 17:42:58 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/11/23 02:27:33 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/05 00:10:12 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ft_atol(const char *nptr)
+int	ft_atol(const char *s)
 {
-	long	sign;
-	long	num;
+	long	result;
+	int		i;
 
-	if (!nptr)
-		return (0);
-	num = 0;
-	sign = 1;
-	while (*nptr == ' ' || *nptr == '\t' || *nptr == '\n'
-		|| *nptr == '\r' || *nptr == '\v' || *nptr == '\f')
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
+	result = 0;
+	i = 0;
+	while (s[i] != '\0' && ft_isdigit(s[i]))
 	{
-		if (*nptr == '-')
-			sign = -1;
-		nptr++;
+		result = result * 10 + (s[i] - '0');
+		i++;
 	}
-	while (*nptr && ft_isdigit(*nptr))
-	{
-		num = num * 10 + (*nptr - '0');
-		nptr++;
-	}
-	return (num * sign);
-}
-
-int	ft_atoi(const char *nptr)
-{
-	long			sign;
-	long long int	num;
-
-	if (!nptr)
-		return (0);
-	num = 0;
-	sign = 1;
-	while (*nptr == ' ' || *nptr == '\t' || *nptr == '\n'
-		|| *nptr == '\r' || *nptr == '\v' || *nptr == '\f')
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
-	{
-		if (*nptr == '-')
-			sign = -1;
-		nptr++;
-	}
-	while (*nptr && ft_isdigit(*nptr))
-	{
-		num = num * 10 + (*nptr - '0');
-		nptr++;
-	}
-	return ((int)num * sign);
+	return (result);
 }
 
 int	ft_isdigit(int c)

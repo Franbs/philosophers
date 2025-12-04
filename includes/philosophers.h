@@ -6,7 +6,7 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 12:51:38 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/12/04 19:35:05 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/04 23:52:38 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int				n_philos;
+	long			n_philos;
 	long			time_to_eat;
 	long			time_to_die;
 	long			time_to_sleep;
-	int				n_min_eat;
+	long			n_min_eat;
 	long			start_time;
 	bool			is_dead;
 	t_philo			*philos;

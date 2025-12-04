@@ -6,26 +6,33 @@
 /*   By: fbanzo-s <fbanzo-s@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 15:22:40 by fbanzo-s          #+#    #+#             */
-/*   Updated: 2025/12/04 20:50:41 by fbanzo-s         ###   ########.fr       */
+/*   Updated: 2025/12/05 00:08:51 by fbanzo-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static bool	ft_check_atoi(const char *nptr)
+static bool	ft_check_atol(const char *nptr)
 {
-	long long int	num;
-	int				i;
+	long	result;
+	int		i;
 
-	num = 0;
+	result = 0;
 	i = 0;
 	while (nptr[i])
 	{
-		num = num * 10 + (nptr[i] - '0');
-		if (num > INT_MAX)
+		if (result > LONG_MAX / 10)
 			return (false);
+		result *= 10;
+		if (result > LONG_MAX - (nptr[i] - '0'))
+			return (false);
+		result += nptr[i] - '0';
 		i++;
 	}
+	if (result <= 0)
+		return (false);
+	if (result > INT_MAX)
+		return (false);
 	return (true);
 }
 
@@ -34,7 +41,7 @@ static int	ft_check_num(char *str)
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (!str || str[i] == '\0')
 		return (1);
 	while (str[i])
 	{
@@ -42,7 +49,7 @@ static int	ft_check_num(char *str)
 			return (1);
 		i++;
 	}
-	if (!ft_check_atoi(str))
+	if (!ft_check_atol(str))
 		return (1);
 	return (0);
 }
@@ -53,17 +60,14 @@ int	ft_check_args(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 		return (printf("args not valid\n"), 1);
+	if (ft_atol(av[1]) > 200)
+		return (printf("args not valid\n"), 1);
 	i = 1;
 	while (av[i])
 	{
 		if (ft_check_num(av[i]) == 1)
 			return (printf("args not valid\n"), 1);
 		i++;
-	}
-	if (ac == 6)
-	{
-		if (ft_atoi(av[5]) < 1)
-			return (1);
 	}
 	return (0);
 }
